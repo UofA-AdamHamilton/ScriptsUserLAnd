@@ -9,6 +9,7 @@
 SCRIPT_NAME="laton"
 
 # Check if the script exists and is executable
+# -x returns true if file is executable
 if [ -x "./$SCRIPT_NAME" ]; then
     echo "LaTeX Online editor ('$SCRIPT_NAME') is already installed."
 else
@@ -27,6 +28,8 @@ else
 fi
 
 # Function to check and install required packages
+# -s is true if the file exists and is not empty
+# dpkg is the package directory
 install_if_missing() {
     PKG_NAME=$1
     if ! dpkg -s "$PKG_NAME" &> /dev/null; then
@@ -52,6 +55,8 @@ VENV_DIR="venv"
 REQ_FILE="requirements.txt"
 
 # Step 1: Create the virtual environment if needed
+# -f is true if the file exists and is neither a directory
+# or spexial service
 if [ ! -f "$VENV_DIR/bin/activate" ]; then
     echo "Virtual environment not found. Creating..."
     python3 -m venv "$VENV_DIR"
