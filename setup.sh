@@ -26,11 +26,56 @@ else
     fi
 fi
 
+# Function to check and install required packages
+install_if_missing() {
+    PKG_NAME=$1
+    if ! dpkg -s "$PKG_NAME" &> /dev/null; then
+        echo "Package '$PKG_NAME' is not installed. Installing..."
+        sudo apt-get update
+        sudo apt-get install -y "$PKG_NAME"
+    else
+        echo "Package '$PKG_NAME' is already installed."
+    fi
+}
 
-sudo apt update
-sudo apt install --reinstall ca-certificates
-sudo update-ca-certificates
+# Check for required packages
+install_if_missing "bzip2"
+install_if_missing "ca-certificates"
+install_if_missing "micro"
+install_if missing "pip"
+install_if_missing "python3-venv"
 
-sudo apt update
-sudo apt install bzip2
+# starts up the python virtual environment
+#!/bin/bash
 
+VENV_DIR="venv"
+REQ_FILE="requirements.txt"
+
+# Step 1: Create the virtual environment if needed
+if [ ! -f "$VENV_DIR/bin/activate" ]; then
+    echo "Virtual environment not found. Creating..."
+    python3 -m venv "$VENV_DIR"
+    if [ $? -ne 0 ]; then
+        echo "Failed to create virtual environment."
+        exit 1
+    fi
+fi
+
+# Step 2: Activate the virtual environment
+echo "Activating virtual environment..."
+# Note: This must be sourced to persist in current shell if run directly
+source "$VENV_DIR/bin/activate"
+
+# Step 3: Install dependencies if requirements.txt exists
+if [ -f "$REQ_FILE" ]; then
+    echo "Installing dependencies from $REQ_FILE..."
+    pip install --upgrade pip
+    pip install -r "$REQ_FILE"
+else
+    echo "No $REQ_FILE file found. Skipping dependency installation."
+fi
+
+# Optional: Confirm environment setup
+echo "Environment setup complete."
+python --version
+pip list
