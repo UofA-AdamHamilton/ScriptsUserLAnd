@@ -26,7 +26,7 @@ fi
 echo "Running laton with the following files:"
 printf " - %s\n" "${FILES[@]}"
 
-laton "${FILES[@]}" > "$OUTPUT_FILE"
+laton "${FILES[@]}"
 
 # Confirm success
 if [ $? -eq 0 ]; then
