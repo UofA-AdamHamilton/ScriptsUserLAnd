@@ -48,7 +48,7 @@ install_if_missing "micro"
 install_if_missing "python3"
 install_if missing "pip"
 install_if_missing "python3-venv"
-
+install_is_missing "poppler-utils"
 
 # starts up the python virtual environment
 #!/bin/bash

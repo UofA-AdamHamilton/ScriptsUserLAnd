@@ -12,7 +12,12 @@ fi
 # Collect all files in the input directory (non-recursive)
 FILES=()
 while IFS= read -r -d $'\0' file; do
-    FILES+=("$file")
+	# Check if the file has a .py extension
+	if [[ "$filename" == *.py || "$filename" == *.ipynb ]]; then
+	  echo "python found "
+	else
+	  FILES+=("$file")
+	fi
 done < <(find "$INPUT_DIR" -maxdepth 2 -type f -print0)
 
 # Exit if no files found
