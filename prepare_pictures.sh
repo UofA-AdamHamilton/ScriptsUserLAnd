@@ -6,6 +6,9 @@
 # downloads the image folder called Public_images
 python3 google_drive_downloader.py
 
+# collect the outputs of a python script
+#output=$(python3 google_drive_downloader.py)
+
 # Collect all files in the input directory (non-re
 directory="./Public_images"
 
@@ -15,6 +18,8 @@ for file in "./Public_images"/*; do
   if [ -f "$file" ]; then
     echo "Processing file: $file"
     # moves the file to the laton inputs folder
-    mv "$file" ~/ScriptsUserLAnd/latex_example/laton_inputs
+    mv "$file" ./latex_example/laton_inputs
   fi
 done
+# Now delete the empty Public images folder
+rm -r Public_images
