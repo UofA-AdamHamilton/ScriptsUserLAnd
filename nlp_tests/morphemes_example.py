@@ -4,4 +4,4 @@ from morphemes import Morphemes
 path = "./data"
 
 m = Morphemes(path) #Data path is optional, local storage will be used if left out.
-print(m.parse("organizationally"))
+print(m.parse("is"))
