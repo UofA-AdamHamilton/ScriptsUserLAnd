@@ -76,8 +76,8 @@ source "$VENV_DIR/bin/activate"
 # Step 3: Install dependencies if requirements.txt exists
 if [ -f "$REQ_FILE" ]; then
     echo "Installing dependencies from $REQ_FILE..."
-    pip install --upgrade pip
-    pip install -r "$REQ_FILE"
+    #pip install --upgrade pip
+    #pip install -r "$REQ_FILE"
 else
     echo "No $REQ_FILE file found. Skipping dependency installation."
 fi
